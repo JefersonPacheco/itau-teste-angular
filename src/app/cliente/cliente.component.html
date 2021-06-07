@@ -1,0 +1,101 @@
+<div class="container">
+    <div class="row justify-content-md-center">
+        <h4>Busca de Clientes</h4>
+
+        <form [formGroup]="formBusca">
+            <div class="form-row">
+                <div class="row mt-3">
+                    <div class="col-3">
+                        <label for="nome">Nome</label>
+                        <input type="text" class="form-control" id="nome" placeholder="Nome do Cliente"
+                            formControlName="nome">
+                    </div>
+                    <div class="col-4">
+                        <label for="sobrenome">Sobrenome</label>
+                        <input type="text" class="form-control" id="sobrenome" placeholder="Sobrenome do Cliente"
+                            formControlName="sobrenome">
+                    </div>
+                    <div class="col-3">
+                        <label for="cpf">CPF</label>
+                        <input type="text" class="form-control" id="cpf" placeholder="CPF do Cliente"
+                            [textMask]="{mask: cpfMask}" formControlName="cpf">
+                    </div>
+                    <div class="col-1" style="margin-left: 15px;">
+                        <label for="btn"></label>
+                        <button type="submit" id="btn" class="btn btn-primary float-end"
+                            (click)="pesquisar()">Pesquisar</button>
+                    </div>
+                </div>
+            </div>
+        </form>
+
+        <div class="card mt-3" style="padding-top: 10px">
+            <div class="card-header">
+                <button type="button" class="btn btn-primary float-end" routerLink="/novo">Novo cliente</button>
+                <button type="button" class="btn btn-secondary float-end btn-spacing"
+                    (click)="onRefresh()">Atualizar</button>
+                <h4>Clientes</h4>
+            </div>
+            <div class="card-body">
+                <table class="table table-hover" *ngIf="(clientes$ | async) as clientes; else loading">
+                    <thead>
+                        <tr>
+                            <th>#</th>
+                            <th>Cliente</th>
+                            <th>CPF</th>
+                            <th>CEP</th>
+                            <th>Tipo Tel.</th>
+                            <th>Telefones</th>
+                            <th></th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr *ngFor="let cliente of clientes">
+                            <td>{{ cliente.idCliente }}</td>
+                            <td>{{ cliente.nome }} {{ cliente.sobrenome }}</td>
+                            <td>{{ cpf_mask(cliente.cpf) }}</td>
+                            <td>{{ cep_mask(cliente.cep) }}</td>
+                            <td>
+                                <ul style="list-style-type:none; padding: 0; margin: 0;"
+                                    *ngFor="let tel of cliente.telefone">
+                                    <li>{{ tel.tipoTelefone }}</li>
+                                </ul>
+                            </td>
+                            <td>
+                                <ul style="list-style-type:none; padding: 0; margin: 0;"
+                                    *ngFor="let tel of cliente.telefone">
+                                    <li>({{ tel.ddd }}) {{ tel_mask(tel.numero) }}</li>
+                                </ul>
+                            </td>
+                            <td>
+                                <span class="float-right">
+                                    <button class="btn btn-outline-warning mb-1 btn-sm btn-spacing"
+                                        (click)="onEdit(cliente)">
+                                        Editar
+                                    </button>
+
+                                    <button class="btn btn-outline-danger mb-1 btn-sm" (click)="onDelete(cliente)">
+                                        Remover
+                                    </button>
+                                </span>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+
+                <ng-template #loading>
+                    <span>Carregando clientes...</span>
+                </ng-template>
+
+            </div>
+        </div>
+    </div>
+</div>
+
+<ng-template #deleteModal>
+    <div class="modal-body text-center">
+        <p>Tem certeza que deseja remover esse cliente?</p>
+        <button type="button" class="btn btn-default" (click)="onConfirmDelete()">Sim</button>
+        <button type="button" class="btn btn-primary" (click)="onDeclineDelete()">Nao</button>
+    </div>
+</ng-template>

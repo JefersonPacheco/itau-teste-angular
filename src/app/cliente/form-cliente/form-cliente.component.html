@@ -1,0 +1,112 @@
+<div class="container">
+
+    <h4>Cadastro de Clientes</h4>
+
+    <form class="needs-validation" novalidate [formGroup]="form" style="padding-top: 10px">
+        <div class="form-row">
+            <div class="col-12 row mt-3">
+                <div class="col-5">
+                    <label for="nome">Nome*</label>
+                    <input type="text" class="form-control" id="nome" placeholder="Nome do Cliente"
+                        formControlName="nome" [ngClass]="{ 'is-invalid': submitted && hasError('nome')}" />
+                    <div class="invalid-feedback" *ngIf="hasError('nome')">
+                        Nome Inválido!
+                    </div>
+                </div>
+                <div class="col-7">
+                    <label for="sobrenome">Sobrenome*</label>
+                    <input type="text" class="form-control" id="sobrenome" placeholder="Sobrenome do Cliente"
+                        formControlName="sobrenome" [ngClass]="{ 'is-invalid': submitted && hasError('sobrenome')}" />
+                    <div class="invalid-feedback" *ngIf="hasError('sobrenome')">
+                        Sobrenome Inválido!
+                    </div>
+                </div>
+            </div>
+            <div class="col-12 row mt-3">
+                <div class="col-6">
+                    <label for="cpf">CPF*</label>
+                    <input type="text" class="form-control" id="cpf" placeholder="CPF do Cliente" formControlName="cpf"
+                        [readonly]="readonly" [textMask]="{mask: cpfMask}"
+                        [ngClass]="{ 'is-invalid': submitted && hasError('cpf')}" />
+                    <div class="invalid-feedback" *ngIf="hasError('cpf')">
+                        CPF Inválido!
+                    </div>
+                </div>
+                <div class="col-6">
+                    <label for="cep">CEP*</label>
+                    <input type="text" class="form-control" id="cep" placeholder="CEP do Cliente" formControlName="cep"
+                        [textMask]="{mask: cepMask}" [ngClass]="{ 'is-invalid': submitted && hasError('cep')}" />
+                    <div class="invalid-feedback" *ngIf="hasError('cep')">
+                        CEP Inválido!
+                    </div>
+                </div>
+            </div>
+            <div class="col-12 row mt-3">
+                <div class="col-6">
+                    <label for="logradouro">Logradouro</label>
+                    <input type="text" class="form-control" id="logradouro" placeholder="Logradouro do Cliente"
+                        formControlName="logradouro" [ngClass]="{ 'is-invalid': submitted && hasError('logradouro')}" />
+                    <div class="invalid-feedback" *ngIf="hasError('logradouro')">
+                        Logradouro Inválido!
+                    </div>
+                </div>
+                <div class="col-2">
+                    <label for="numLogradouro">Nº</label>
+                    <input type="text" class="form-control" id="numLogradouro" placeholder="Número do Cliente"
+                        formControlName="numLogradouro"
+                        [ngClass]="{ 'is-invalid': submitted && hasError('numLogradouro')}" />
+                    <div class="invalid-feedback" *ngIf="hasError('numLogradouro')">
+                        Número Inválido!
+                    </div>
+                </div>
+                <div class="col-4">
+                    <label for="complemento">Complemento</label>
+                    <input type="text" class="form-control" id="complemento" placeholder="Complemento do Logradouro"
+                        formControlName="complemento"
+                        [ngClass]="{ 'is-invalid': submitted && hasError('complemento')}" />
+                    <div class="invalid-feedback" *ngIf="hasError('complemento')">
+                        Complemento Inválido!
+                    </div>
+                </div>
+            </div>
+
+            <h5 class="mt-3">Telefones</h5>
+            <button type="button" class="btn btn-outline-primary mb-1 btn-spacing"
+                (click)="addNumber()">Adicionar</button>
+            <button type="button" class="btn btn-outline-danger mb-1 btn-spacing" style="margin-left: 5px;"
+                (click)="removeNumber()">Remover</button>
+
+            <div formArrayName="telefone">
+                <div *ngFor="let number of getControls(); let i = index">
+                    <div class="col-12 row mt-3" formGroupName="{{i}}">
+                        <div class="col-4">
+                            <label for="tipotelefone">Tipo Telefone {{i + 1}}*</label>
+                            <select class="form-control" id="tipotelefone" formControlName="tipotelefone">
+                                <option>Celular</option>
+                                <option>Residencial</option>
+                                <option>Comercial</option>
+                            </select>
+                        </div>
+                        <div class="col-2">
+                            <label for="ddd">DDD*</label>
+                            <input type="text" class="form-control" [textMask]="{mask: dddMask}" id="ddd"
+                                placeholder="DDD do telefone" formControlName="ddd" />
+                        </div>
+                        <div class="col-6">
+                            <label for="numero">Número*</label>
+                            <input type="text" class="form-control" [textMask]="{mask: telMask}" id="numero"
+                                placeholder="Número de telefone" formControlName="numero" />
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+
+        </div>
+        <div class="mt-3 float-end">
+            <button type="submit" class="btn btn-primary" (click)="onSubmit()">Salvar</button>
+            <button type="button" class="btn btn-default" routerLink="" (click)="onCancel()">Cancelar</button>
+        </div>
+    </form>
+
+</div>
