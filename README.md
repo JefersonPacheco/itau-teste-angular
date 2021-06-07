@@ -8,4 +8,4 @@ Run `ng serve` for a dev server. Navigate to `http://localhost:4200/`. The app w
 
 ## Apontando para a API
 
-Dentro do arquivo cliente.service.ts há uma constante com o endereço da API (private readonly API = 'https://localhost:44314/api/cliente';), verifique se esta é a mesma porta que  seu IIS subiu a API, se não, por favor atualizar com a porta utilizada.
+Dentro do arquivo cliente.service.ts há uma variável com o endereço da API (private readonly API = 'https://localhost:44314/api/cliente';), verifique se esta é a mesma porta que  seu IIS subiu a API, se não, por favor atualizar com a porta utilizada.
