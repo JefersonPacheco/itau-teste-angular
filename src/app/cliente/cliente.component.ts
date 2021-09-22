@@ -47,9 +47,7 @@ export class ClienteComponent implements OnInit {
   ) { }
 
   ngOnInit() {
-    this.service.list()
-      .subscribe(dados => this.clientes = dados);
-
+    this.service.list().subscribe(dados => this.clientes = dados);
     this.onRefresh();
     this.iniciarFormBusca();
   }
@@ -78,7 +76,6 @@ export class ClienteComponent implements OnInit {
   }
 
   iniciarFormBusca() {
-
     this.formBusca = this.fbBusca.group({
       nome: [''],
       cpf: [''],
@@ -87,7 +84,6 @@ export class ClienteComponent implements OnInit {
   }
 
   pesquisar() {
-
     this.clienteBusca = this.formBusca.value;
 
     if (!this.validarBusca()) {
@@ -121,7 +117,6 @@ export class ClienteComponent implements OnInit {
   onDeclineDelete() {
     this.deleteModalRef.hide();
   }
-
 
   validarBusca() {
     let validacao = false;

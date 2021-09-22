@@ -36,7 +36,6 @@ export class FormClienteComponent implements OnInit {
   ) { }
 
   ngOnInit(): void {
-
     // Busca o cliente pelo Id
     this.route.params
       .pipe(
@@ -70,11 +69,9 @@ export class FormClienteComponent implements OnInit {
     });
 
     this.readonly = true;
-
   }
 
   iniciarForm() {
-
     this.form = this.fb.group({
       idCliente: 0,
       nome: [this.cliente?.nome, [Validators.required, Validators.maxLength(50)]],
@@ -133,7 +130,6 @@ export class FormClienteComponent implements OnInit {
     this.submitted = true;
 
     if (this.form.valid) {
-
       let msgSuccess = 'Cliente criado com sucesso!';
       let msgError = 'Erro ao criar cliente, tente novamente!';
       if (this.form.value.id) {
